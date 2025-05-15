@@ -1,0 +1,19 @@
+filename=$1
+
+if [[ -z "$filename" || $1 == "-h" || ! "$filename" == *.asm ]];then
+        echo " usage: ./compile [filename.asm]"
+        exit 1
+fi
+
+filenameprefix=$(echo $filename | cut -d. -f1)
+
+#echo $filename
+#echo $filenameprefix
+
+nasm -f elf64 $filename -o $filenameprefix.o         
+
+ld.lld -m elf_x86_64 $filenameprefix.o -o $filenameprefix.out
+
+./$filenameprefix.out
+rm $filenameprefix.out
+rm $filenameprefix.o
