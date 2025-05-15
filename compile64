@@ -15,5 +15,6 @@ nasm -f elf64 $filename -o $filenameprefix.o
 ld.lld -m elf_x86_64 $filenameprefix.o -o $filenameprefix.out
 
 ./$filenameprefix.out
+sleep 1
 rm $filenameprefix.out
 rm $filenameprefix.o
