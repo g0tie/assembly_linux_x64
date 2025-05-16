@@ -1,6 +1,6 @@
 SECTION .data
 	prompt db 'Insert name:',0
-	greeting db 'Hello, '
+	greeting db 'Hello, ',0
 
 SECTION .bss
 	name resb 32
@@ -21,7 +21,7 @@ SECTION .text
 		pop rcx
 
 		syscall
-		mov [rsi + rax - 1], byte 0 
+		mov [rsi + rax ], byte 0 
 
 		ret
 	_write:
@@ -34,7 +34,7 @@ SECTION .text
 
 		mov rsi, rax
 		mov rax, 1
-
+		
 		syscall
 		
 		ret
@@ -44,7 +44,7 @@ SECTION .text
 		call readName
 		call putGreeting
 		call putName
-	
+		call exit	
 	slen:
 		push rbx
 		mov rbx, rax
