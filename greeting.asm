@@ -8,6 +8,21 @@ SECTION .bss
 SECTION .text
 	global _start
 
+	_read:
+		push rcx
+		push rbx
+
+		mov rax, 0
+		mov rdi, 0
+		mov rsi, rcx
+		mov rdx, rbx
+
+		pop rbx
+		pop rcx
+
+		syscall
+
+		ret
 	_write:
 		push rax
 		call slen
@@ -26,18 +41,20 @@ SECTION .text
 	_start:
 		call putPrompt
 		call readName
+		call putGreeting
+		call putName
 	
 	slen:
 		push rbx
 		mov rbx, rax
 		
 	.nextchar:
-		cmp byte [eax],0
+		cmp byte [rax],0
 		jz .finished
 		inc rax
-		jmp nextchar
+		jmp .nextchar
 
-	.finished
+	.finished:
 		sub rax, rbx
 		pop rbx
 
@@ -46,34 +63,24 @@ SECTION .text
 	putPrompt:
 		mov rax, prompt
 		call _write
+		ret
+
 	readName:
 		mov rbx, 32
 		mov rcx, name
 		call _read
-	_read:
-		push rcx
-		push rbx
-
-		mov rax, 0
-		mov rdi, 0
-		mov rsi, rcx
-		mov rdx, rbx
-
-		pop rbx
-		pop rcx
-
-		syscall
-
 		ret
+
 
 	putGreeting:
 		mov rax, greeting
 		call _write
+		ret
 
 	putName:
 		mov rax, name
 		call _write
-
+		ret
 
 	exit:
 		mov rax, 60
