@@ -1,7 +1,7 @@
 %include './mylibs/strings.asm'
 
 SECTION .data
-	digit db 0
+	digit db 0, 0Ah
 
 ;SECTION .bss
 
@@ -18,7 +18,8 @@ printDigit:
 
 	add rax, 48
 	mov [digit], al
-
+	mov byte [digit + 1], 0
+	
 	push rax
 
 	mov rax, digit
