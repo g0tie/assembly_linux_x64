@@ -21,6 +21,7 @@ SECTION .text
 		pop rcx
 
 		syscall
+		mov [rsi + rax - 1], byte 0 
 
 		ret
 	_write:
