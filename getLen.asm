@@ -1,27 +1,28 @@
 %include './mylibs/strings.asm'
 
 SECTION .data
-	msg1 db 'Test',0
-
-SECTION .bss
-
+	msg2 db 'Hello',0
 
 SECTION .text
 global _start
 
 _start:
-	mov rsi, msg1
+	mov rsi, msg2
 	call getLen
-	jmp exit
+	
+	
+	mov rax, 1
+	mov rdi, 1
+	mov rdx,rcx
+	syscall
 
+	jmp exit
 
 getLen:
 	xor rcx, rcx
-
 .loop:
 	mov al, [rsi + rcx]
-
-
+	
 	cmp al, 0
 	jz .done
 
@@ -29,16 +30,10 @@ getLen:
 	jmp .loop
 
 .done:
-	push rax
-	mov rax, rcx
-	add rax, 48
-
-	call _write
 	ret
+
 
 exit:
 	mov rax, 60
 	xor rdi, rdi
 	syscall
-
-
