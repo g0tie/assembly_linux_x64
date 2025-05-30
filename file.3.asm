@@ -5,26 +5,25 @@ SECTION .data
 	text db 'I love Zaina', 10, 0 
 
 SECTION .bss
-	fd resb 8
+	fd resd 1
 
 SECTION .text
 	global _start
 
 _start:
-	mov rax, 2
+	mov eax, 2
 	mov rdi, filename
-	mov rsi, 64 | 2
+	mov rsi, 64 | 1024 | 2
 	mov rdx, 0o664
 	syscall
-	mov [fd], rax
+	mov [fd], eax
 
-	
+	mov edi, [fd]
 	mov rsi, text
 	call getLen
-	mov rax, 1
-	mov rdi, [fd]
+	mov eax, 1
 	mov rdx, rcx
-	syscall
+	syscall	
 
 	mov rax, 3
 	mov rdi, [fd]
