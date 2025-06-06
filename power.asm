@@ -18,5 +18,13 @@ main:
 	mov r12, rsi
 
 
+	mov rdi, [r12+16]
+	call atoi
+
+	cmp eax, 0
+	jl error2
+	mov r13d, eax
+
+
 
 
