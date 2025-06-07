@@ -1,6 +1,6 @@
 global main
 extern atoi
-exern printf
+extern printf
 default rel
 
 section .data
